@@ -19,9 +19,6 @@ COPY . .
 # Создание директорий для статических файлов и логов
 RUN mkdir -p staticfiles media logs
 
-# Сбор статических файлов (будет выполнено при деплое)
-# RUN python manage.py collectstatic --noinput --settings=config.settings_production
-
 # Открытие порта
 EXPOSE 8000
 
