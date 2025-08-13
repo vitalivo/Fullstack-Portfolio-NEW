@@ -48,14 +48,14 @@ export default function CertificateCard({ certificate, locale }: CertificateCard
   }
 
   return (
-    <Card className="group flex flex-col h-full overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-0 bg-white">
+    <Card className="group flex flex-col h-full overflow-hidden shadow-lg md:hover:shadow-2xl transition-all duration-300 md:transform md:hover:-translate-y-1 border-0 bg-white">
       <div className="relative w-full h-48 bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center">
         {certificate.certificate_image ? (
           <Image
             src={certificate.certificate_image || "/placeholder.svg"}
             alt={localizedTitle}
             fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            className="object-cover transition-transform duration-300 md:group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
@@ -91,7 +91,7 @@ export default function CertificateCard({ certificate, locale }: CertificateCard
       </div>
 
       <CardHeader className="flex-grow">
-        <CardTitle className="text-lg font-bold text-gray-800 group-hover:text-blue-600 transition-colors line-clamp-2">
+        <CardTitle className="text-lg font-bold text-gray-800 md:group-hover:text-blue-600 transition-colors line-clamp-2">
           {localizedTitle}
         </CardTitle>
         <CardDescription className="text-blue-600 font-medium">{certificate.issuer}</CardDescription>

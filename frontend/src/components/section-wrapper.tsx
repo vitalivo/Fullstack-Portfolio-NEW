@@ -7,7 +7,12 @@ interface SectionWrapperProps {
   children: React.ReactNode
   id: string
   className?: string
-  delay?: number // Задержка для анимации секции
+  delay?: number
+}
+
+const useIsMobile = () => {
+  if (typeof window === "undefined") return false
+  return window.innerWidth < 768
 }
 
 const sectionVariants = {
@@ -18,21 +23,36 @@ const sectionVariants = {
     transition: {
       duration: 0.6,
       ease: "easeOut",
-      when: "beforeChildren", // Анимировать родителя перед дочерними элементами
-      staggerChildren: 0.1, // Задержка между анимациями дочерних элементов
+      when: "beforeChildren",
+      staggerChildren: 0.05, // Уменьшено с 0.1 до 0.05
+    },
+  },
+}
+
+const mobileSectionVariants = {
+  hidden: { opacity: 0 }, // Только opacity, без y-трансформации
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.4, // Быстрее для мобильных
+      ease: "easeOut",
+      when: "beforeChildren",
+      staggerChildren: 0.02, // Минимальная задержка
     },
   },
 }
 
 export default function SectionWrapper({ children, id, className, delay = 0 }: SectionWrapperProps) {
+  const isMobile = useIsMobile()
+
   return (
     <motion.section
       id={id}
       className={className}
-      variants={sectionVariants}
+      variants={isMobile ? mobileSectionVariants : sectionVariants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }} // Анимировать один раз, когда 20% секции видно
+      viewport={{ once: true, amount: isMobile ? 0.1 : 0.2 }} // меньший amount для мобильных
       transition={{ delay }}
     >
       {children}

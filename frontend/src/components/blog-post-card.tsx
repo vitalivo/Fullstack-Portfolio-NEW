@@ -47,14 +47,14 @@ export default function BlogPostCard({ post, locale }: BlogPostCardProps) {
   }
 
   return (
-    <Card className="group flex flex-col h-full overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-0 bg-white">
+    <Card className="group flex flex-col h-full overflow-hidden shadow-lg md:hover:shadow-2xl transition-all duration-300 md:transform md:hover:-translate-y-2 border-0 bg-white">
       <div className="relative w-full h-48 overflow-hidden">
         {post.thumbnail ? (
           <Image
             src={post.thumbnail || "/placeholder.svg"}
             alt={localizedTitle}
             fill
-            className="object-cover transition-transform duration-300 group-hover:scale-110"
+            className="object-cover transition-transform duration-300 md:group-hover:scale-110"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
@@ -78,7 +78,7 @@ export default function BlogPostCard({ post, locale }: BlogPostCardProps) {
       </div>
 
       <CardHeader className="flex-grow">
-        <CardTitle className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors line-clamp-2">
+        <CardTitle className="text-xl font-bold text-gray-800 md:group-hover:text-blue-600 transition-colors line-clamp-2">
           {localizedTitle}
         </CardTitle>
         {localizedSubtitle && (

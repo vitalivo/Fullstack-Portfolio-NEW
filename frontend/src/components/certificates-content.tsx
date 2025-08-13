@@ -36,30 +36,24 @@ export default function CertificatesContent({ dict, certificates, locale }: Cert
         </motion.div>
       </motion.div>
 
-      <motion.div
-        className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
-      >
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
         {certificates.length > 0 ? (
           certificates.map((certificate) => (
-            <motion.div key={certificate.id} variants={itemVariants}>
+            <div key={certificate.id}>
               <CertificateCard certificate={certificate} locale={locale} />
-            </motion.div>
+            </div>
           ))
         ) : (
-          <motion.div className="col-span-full text-center text-gray-500" variants={itemVariants}>
+          <div className="col-span-full text-center text-gray-500">
             <div className="py-12">
               <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">🏆</span>
               </div>
               <p className="text-lg font-medium">{dict.certificates.no_certificates_found}</p>
             </div>
-          </motion.div>
+          </div>
         )}
-      </motion.div>
+      </div>
     </div>
   )
 }

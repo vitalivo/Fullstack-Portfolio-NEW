@@ -154,6 +154,22 @@ export default function HeaderClient({ locale, dict, profile, localizedName, loc
             >
               {dict.header.contact}
             </Link>
+
+            {/* Добавлено: Мобильное меню языков */}
+            <div className="border-t pt-4 mt-4">
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Language</p>
+              {i18n.locales.map((lang) => (
+                <Link
+                  key={lang}
+                  href={`/${lang}`}
+                  className={`block py-2 text-sm font-medium transition-colors ${
+                    locale === lang ? "text-blue-600" : "text-gray-700 hover:text-blue-600"
+                  }`}
+                >
+                  {lang.toUpperCase()}
+                </Link>
+              ))}
+            </div>
           </nav>
         </div>
       )}
