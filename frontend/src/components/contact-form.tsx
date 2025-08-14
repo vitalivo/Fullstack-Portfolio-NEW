@@ -3,10 +3,13 @@
 import type React from "react"
 import { useState } from "react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { Button } from "../components/ui/button"
-import { sendContactMessage } from "../lib/api"
-import type { ContactMessageCreate } from ".."
-import type { Locale } from "../../i18n-config"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
+import { sendContactMessage } from "@/lib/api"
+import type { ContactMessageCreate } from "@/lib/types"
+import type { Locale } from "@/lib/dictionaries"
 import { SendIcon, CheckCircleIcon, AlertCircleIcon } from "lucide-react"
 
 interface ContactFormProps {
@@ -93,10 +96,10 @@ export default function ContactForm({ locale, dict }: ContactFormProps) {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="name" className={labelClassName}>
+              <Label htmlFor="name" className={labelClassName}>
                 {dict.contact.form.name} *
-              </label>
-              <input
+              </Label>
+              <Input
                 id="name"
                 name="name"
                 type="text"
@@ -108,10 +111,10 @@ export default function ContactForm({ locale, dict }: ContactFormProps) {
               />
             </div>
             <div>
-              <label htmlFor="email" className={labelClassName}>
+              <Label htmlFor="email" className={labelClassName}>
                 {dict.contact.form.email} *
-              </label>
-              <input
+              </Label>
+              <Input
                 id="email"
                 name="email"
                 type="email"
@@ -126,10 +129,10 @@ export default function ContactForm({ locale, dict }: ContactFormProps) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="phone" className={labelClassName}>
+              <Label htmlFor="phone" className={labelClassName}>
                 {dict.contact.form.phone}
-              </label>
-              <input
+              </Label>
+              <Input
                 id="phone"
                 name="phone"
                 type="tel"
@@ -140,10 +143,10 @@ export default function ContactForm({ locale, dict }: ContactFormProps) {
               />
             </div>
             <div>
-              <label htmlFor="company" className={labelClassName}>
+              <Label htmlFor="company" className={labelClassName}>
                 {dict.contact.form.company}
-              </label>
-              <input
+              </Label>
+              <Input
                 id="company"
                 name="company"
                 type="text"
@@ -156,10 +159,10 @@ export default function ContactForm({ locale, dict }: ContactFormProps) {
           </div>
 
           <div>
-            <label htmlFor="subject" className={labelClassName}>
+            <Label htmlFor="subject" className={labelClassName}>
               {dict.contact.form.subject} *
-            </label>
-            <input
+            </Label>
+            <Input
               id="subject"
               name="subject"
               type="text"
@@ -172,10 +175,10 @@ export default function ContactForm({ locale, dict }: ContactFormProps) {
           </div>
 
           <div>
-            <label htmlFor="message" className={labelClassName}>
+            <Label htmlFor="message" className={labelClassName}>
               {dict.contact.form.message} *
-            </label>
-            <textarea
+            </Label>
+            <Textarea
               id="message"
               name="message"
               value={formData.message}
