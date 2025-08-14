@@ -78,5 +78,8 @@
     "follow_me": "עקבו אחרי",
     "rights_reserved": "כל הזכויות שמורות.",
     "built_with": "נבנה עם Next.js, TypeScript ו-Tailwind CSS"
+  },
+    "common": {
+    "show_all": "הצג הכל"
   }
 }

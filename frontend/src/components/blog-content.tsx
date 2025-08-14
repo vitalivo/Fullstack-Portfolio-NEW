@@ -1,6 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useState, useMemo } from "react"
+import { Button } from "@/components/ui/button"
 import BlogPostCard from "./blog-post-card"
 import type { BlogPost } from "@/lib/types"
 import type { Locale } from "../../i18n-config"
@@ -12,13 +14,15 @@ interface BlogContentProps {
 }
 
 const useIsMobile = () => {
-  if (typeof window === "undefined") return false
-  return window.innerWidth < 768
+  return useMemo(() => {
+    if (typeof window === "undefined") return false
+    return window.innerWidth < 768
+  }, [])
 }
 
 const itemVariants = {
   hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }, // сократил duration с 0.6 до 0.4
 }
 
 const mobileItemVariants = {
@@ -27,7 +31,16 @@ const mobileItemVariants = {
 }
 
 export default function BlogContent({ dict, posts, locale }: BlogContentProps) {
+  const [showAll, setShowAll] = useState(false) // добавил состояние для пагинации
+  const INITIAL_POSTS_COUNT = 4 // показываем 4 поста изначально
   const isMobile = useIsMobile()
+
+  const displayedPosts = useMemo(() => {
+    if (!posts || posts.length === 0) return []
+    return showAll ? posts : posts.slice(0, INITIAL_POSTS_COUNT)
+  }, [posts, showAll])
+
+  const hasMorePosts = posts && posts.length > INITIAL_POSTS_COUNT
 
   return (
     <div className="container px-4 md:px-6">
@@ -49,8 +62,8 @@ export default function BlogContent({ dict, posts, locale }: BlogContentProps) {
       </motion.div>
 
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-        {posts.length > 0 ? (
-          posts.map((post) => (
+        {displayedPosts.length > 0 ? (
+          displayedPosts.map((post) => (
             <div key={post.id}>
               <BlogPostCard post={post} locale={locale} />
             </div>
@@ -66,6 +79,21 @@ export default function BlogContent({ dict, posts, locale }: BlogContentProps) {
           </div>
         )}
       </div>
+
+      {hasMorePosts && !showAll && (
+        <div className="flex justify-center mt-12">
+          <Button
+            onClick={() => setShowAll(true)}
+            variant="outline"
+            size="lg"
+            className="px-8 py-3 text-base font-medium transition-all duration-200 hover:bg-blue-50 hover:border-blue-300"
+          >
+            {locale === "en" && `Show All Posts (${posts.length - INITIAL_POSTS_COUNT} more)`}
+            {locale === "ru" && `Показать все статьи (еще ${posts.length - INITIAL_POSTS_COUNT})`}
+            {locale === "he" && `הצג את כל הפוסטים (עוד ${posts.length - INITIAL_POSTS_COUNT})`}
+          </Button>
+        </div>
+      )}
     </div>
   )
 }

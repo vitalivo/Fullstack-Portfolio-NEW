@@ -3,9 +3,9 @@
 import type React from "react"
 import { useState } from "react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { sendContactMessage } from "@/lib/api"
-import type { ContactMessageCreate } from "@/lib/types"
+import { Button } from "../components/ui/button"
+import { sendContactMessage } from "../lib/api"
+import type { ContactMessageCreate } from ".."
 import type { Locale } from "../../i18n-config"
 import { SendIcon, CheckCircleIcon, AlertCircleIcon } from "lucide-react"
 

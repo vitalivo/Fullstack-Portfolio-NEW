@@ -54,8 +54,9 @@ export default function BlogPostCard({ post, locale }: BlogPostCardProps) {
             src={post.thumbnail || "/placeholder.svg"}
             alt={localizedTitle}
             fill
-            className="object-cover transition-transform duration-300 md:group-hover:scale-110"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            loading="lazy"
+            className="object-cover transition-transform duration-300 md:group-hover:scale-[1.02]"
+            sizes="(max-width: 768px) 100vw, 400px"
           />
         ) : (
           <div className="flex items-center justify-center w-full h-full bg-gradient-to-br from-blue-50 to-purple-50">

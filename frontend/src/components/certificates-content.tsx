@@ -1,6 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useState, useMemo } from "react"
+import { Button } from "@/components/ui/button"
 import CertificateCard from "./certificate-card"
 import type { Certificate } from "@/lib/types"
 import type { Locale } from "../../i18n-config"
@@ -11,12 +13,23 @@ interface CertificatesContentProps {
   locale: Locale
 }
 
+const INITIAL_CERTIFICATES_COUNT = 6
+
 const itemVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } },
 }
 
 export default function CertificatesContent({ dict, certificates, locale }: CertificatesContentProps) {
+  const [showAll, setShowAll] = useState(false)
+
+  const displayedCertificates = useMemo(() => {
+    if (!certificates || certificates.length === 0) return []
+    return showAll ? certificates : certificates.slice(0, INITIAL_CERTIFICATES_COUNT)
+  }, [certificates, showAll])
+
+  const hasMoreCertificates = certificates && certificates.length > INITIAL_CERTIFICATES_COUNT
+
   return (
     <div className="container px-4 md:px-6">
       <motion.div
@@ -24,7 +37,7 @@ export default function CertificatesContent({ dict, certificates, locale }: Cert
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
-        variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
+        variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
       >
         <motion.div className="space-y-4" variants={itemVariants}>
           <h2 className="text-4xl font-bold tracking-tighter sm:text-5xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -37,8 +50,8 @@ export default function CertificatesContent({ dict, certificates, locale }: Cert
       </motion.div>
 
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-        {certificates.length > 0 ? (
-          certificates.map((certificate) => (
+        {displayedCertificates.length > 0 ? (
+          displayedCertificates.map((certificate) => (
             <div key={certificate.id}>
               <CertificateCard certificate={certificate} locale={locale} />
             </div>
@@ -54,6 +67,19 @@ export default function CertificatesContent({ dict, certificates, locale }: Cert
           </div>
         )}
       </div>
+
+      {hasMoreCertificates && !showAll && (
+        <div className="flex justify-center mt-12">
+          <Button
+            onClick={() => setShowAll(true)}
+            variant="outline"
+            size="lg"
+            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 hover:from-blue-700 hover:to-purple-700"
+          >
+            {dict.common?.show_all || "Show All"}
+          </Button>
+        </div>
+      )}
     </div>
   )
 }

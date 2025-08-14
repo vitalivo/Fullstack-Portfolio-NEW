@@ -78,5 +78,8 @@
     "follow_me": "Подписывайтесь",
     "rights_reserved": "Все права защищены.",
     "built_with": "Создано с помощью Next.js, TypeScript и Tailwind CSS"
+  },
+    "common": {
+    "show_all": "Показать все"
   }
 }

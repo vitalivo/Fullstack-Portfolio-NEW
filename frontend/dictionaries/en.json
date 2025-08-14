@@ -78,5 +78,8 @@
     "follow_me": "Follow Me",
     "rights_reserved": "All rights reserved.",
     "built_with": "Built with Next.js, TypeScript & Tailwind CSS"
-  }
+  },
+    "common": {
+    "show_all": "Show All"
 }
+} 

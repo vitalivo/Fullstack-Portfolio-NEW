@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import type { Project } from "@/lib/types"
 import type { Locale } from "../../i18n-config"
 import { ExternalLinkIcon, GithubIcon, PlayIcon, VideoIcon, StarIcon } from "lucide-react"
+import { useMemo } from "react"
 
 interface ProjectCardProps {
   project: Project
@@ -21,12 +22,12 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
     return obj?.[localizedKey] || obj?.[fallbackEnKey] || ""
   }
 
-  const localizedTitle = getLocalizedText(project, "title")
-  const localizedDescription = getLocalizedText(project, "description")
-  const localizedLongDescription = getLocalizedText(project, "long_description")
+  const localizedTitle = useMemo(() => getLocalizedText(project, "title"), [project, locale])
+  const localizedDescription = useMemo(() => getLocalizedText(project, "description"), [project, locale])
+  const localizedLongDescription = useMemo(() => getLocalizedText(project, "long_description"), [project, locale])
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
+  const statusColor = useMemo(() => {
+    switch (project.status) {
       case "live":
         return "bg-green-500"
       case "production":
@@ -38,10 +39,10 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
       default:
         return "bg-gray-500"
     }
-  }
+  }, [project.status])
 
-  const getTypeColor = (type: string) => {
-    switch (type) {
+  const typeColor = useMemo(() => {
+    switch (project.project_type) {
       case "web_app":
       case "fullstack":
         return "bg-blue-100 text-blue-800"
@@ -57,7 +58,7 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
       default:
         return "bg-gray-100 text-gray-800"
     }
-  }
+  }, [project.project_type])
 
   // ИСПРАВЛЕНО: Улучшенная логика для GitHub ссылок
   const getGitHubUrl = () => {
@@ -79,15 +80,16 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
   }
 
   return (
-    <Card className="group flex flex-col h-full overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-0 bg-white">
+    <Card className="group flex flex-col h-full overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 md:transform md:hover:-translate-y-1 border-0 bg-white">
       <div className="relative w-full h-48 overflow-hidden">
         {project.thumbnail ? (
           <Image
             src={project.thumbnail || "/placeholder.svg"}
             alt={localizedTitle}
             fill
-            className="object-cover transition-transform duration-300 group-hover:scale-110"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            loading="lazy"
+            className="object-cover transition-transform duration-300 md:group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
           />
         ) : (
           <div className="flex items-center justify-center w-full h-full bg-gradient-to-br from-blue-50 to-purple-50">
@@ -96,7 +98,7 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
         )}
 
         <div className="absolute top-4 right-4 flex gap-2">
-          <Badge className={`${getStatusColor(project.status)} text-white border-0`}>{project.status_display}</Badge>
+          <Badge className={`${statusColor} text-white border-0`}>{project.status_display}</Badge>
         </div>
 
         <div className="absolute top-4 left-4 flex gap-2">
@@ -106,12 +108,12 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
               Featured
             </Badge>
           )}
-          <Badge className={getTypeColor(project.project_type)}>{project.type_display}</Badge>
+          <Badge className={typeColor}>{project.type_display}</Badge>
         </div>
       </div>
 
       <CardHeader className="flex-grow">
-        <CardTitle className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
+        <CardTitle className="text-xl font-bold text-gray-800 md:group-hover:text-blue-600 transition-colors">
           {localizedTitle}
         </CardTitle>
         <CardDescription className="text-gray-600 line-clamp-2">{localizedDescription}</CardDescription>

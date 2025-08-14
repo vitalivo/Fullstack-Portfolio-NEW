@@ -1,6 +1,6 @@
 import type { Locale } from "../../../i18n-config"
-import { getDictionary } from "../lib/dictionaries"
-import { fetchProfile } from "../lib/api"
+import { getDictionary } from "@/lib/dictionaries"
+import { fetchProfile } from "@/lib/api"
 import HeroSection from "@/components/hero-section"
 import AboutSection from "@/components/about-section"
 import ExperienceSection from "@/components/experience-section"
