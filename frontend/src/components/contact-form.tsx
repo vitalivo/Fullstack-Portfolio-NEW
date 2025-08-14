@@ -4,12 +4,9 @@ import type React from "react"
 import { useState } from "react"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { sendContactMessage } from "../lib/api"
+import { sendContactMessage } from "@/lib/api"
 import type { ContactMessageCreate } from "@/lib/types"
-import type { Locale } from "@/lib/dictionaries"
+import type { Locale } from "../../i18n-config"
 import { SendIcon, CheckCircleIcon, AlertCircleIcon } from "lucide-react"
 
 interface ContactFormProps {
@@ -96,10 +93,10 @@ export default function ContactForm({ locale, dict }: ContactFormProps) {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="name" className={labelClassName}>
+              <label htmlFor="name" className={labelClassName}>
                 {dict.contact.form.name} *
-              </Label>
-              <Input
+              </label>
+              <input
                 id="name"
                 name="name"
                 type="text"
@@ -111,10 +108,10 @@ export default function ContactForm({ locale, dict }: ContactFormProps) {
               />
             </div>
             <div>
-              <Label htmlFor="email" className={labelClassName}>
+              <label htmlFor="email" className={labelClassName}>
                 {dict.contact.form.email} *
-              </Label>
-              <Input
+              </label>
+              <input
                 id="email"
                 name="email"
                 type="email"
@@ -129,10 +126,10 @@ export default function ContactForm({ locale, dict }: ContactFormProps) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="phone" className={labelClassName}>
+              <label htmlFor="phone" className={labelClassName}>
                 {dict.contact.form.phone}
-              </Label>
-              <Input
+              </label>
+              <input
                 id="phone"
                 name="phone"
                 type="tel"
@@ -143,10 +140,10 @@ export default function ContactForm({ locale, dict }: ContactFormProps) {
               />
             </div>
             <div>
-              <Label htmlFor="company" className={labelClassName}>
+              <label htmlFor="company" className={labelClassName}>
                 {dict.contact.form.company}
-              </Label>
-              <Input
+              </label>
+              <input
                 id="company"
                 name="company"
                 type="text"
@@ -159,10 +156,10 @@ export default function ContactForm({ locale, dict }: ContactFormProps) {
           </div>
 
           <div>
-            <Label htmlFor="subject" className={labelClassName}>
+            <label htmlFor="subject" className={labelClassName}>
               {dict.contact.form.subject} *
-            </Label>
-            <Input
+            </label>
+            <input
               id="subject"
               name="subject"
               type="text"
@@ -175,10 +172,10 @@ export default function ContactForm({ locale, dict }: ContactFormProps) {
           </div>
 
           <div>
-            <Label htmlFor="message" className={labelClassName}>
+            <label htmlFor="message" className={labelClassName}>
               {dict.contact.form.message} *
-            </Label>
-            <Textarea
+            </label>
+            <textarea
               id="message"
               name="message"
               value={formData.message}
